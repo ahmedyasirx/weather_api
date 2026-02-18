@@ -1,11 +1,14 @@
 openapi: 3.0.0
+
 info:
   title: Weather API
   version: 1.0.0
   description: A simple API to fetch weather information for a specific city
+
 servers:
   - url: http://localhost:3000/api
     description: Local server
+
 paths:
   /weather/{city}:
     get:
@@ -28,18 +31,45 @@ paths:
                 properties:
                   temperature:
                     type: number
-                    description: Current temperature.
+                    description: Current temperature
                     example: 20
                   humidity:
                     type: number
-                    description: Current humidity.
+                    description: Current humidity
+                    example: 65
                   wind:
                     type: number
-                    description: Current wind.
+                    description: Current wind speed
+                    example: 10
                   rain:
                     type: number
-                    description: Current rain.
+                    description: Current rain level
+                    example: 5
         '404':
           description: City not found
+        '500':
+          description: Server error
+
+  /weather/london/forecast:
+    get:
+      summary: Get 3-day forecast for London
+      description: Returns a three-day temperature forecast for London.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  dayOne:
+                    type: number
+                    example: 14
+                  dayTwo:
+                    type: number
+                    example: 23
+                  dayThree:
+                    type: number
+                    example: 17
         '500':
           description: Server error
